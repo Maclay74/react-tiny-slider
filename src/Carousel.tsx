@@ -1,19 +1,8 @@
-// @ts-nocheck
-import React, {
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  MouseEvent,
-  CSSProperties,
-  useState
-} from 'react'
-import { tns } from 'tiny-slider/src/tiny-slider'
+import React, {CSSProperties, MouseEvent, useEffect, useRef} from 'react'
+import {tns} from 'tiny-slider/src/tiny-slider'
 import 'tiny-slider/dist/tiny-slider.css'
-import {
-  TinySliderInstance,
-  TinySliderSettings,
-  TinySliderInfo
-} from 'tiny-slider'
+import {TinySliderInfo, TinySliderInstance, TinySliderSettings} from 'tiny-slider'
+import {getCloneCountForLoop} from "./helpers";
 
 interface ReactTinySliderConfig extends TinySliderSettings {
   onClick?: (slideClicked: Element | null, info: any, event: MouseEvent) => void
@@ -23,9 +12,9 @@ interface ReactTinySliderConfig extends TinySliderSettings {
   onTouchStart?: (info: TinySliderInfo) => void
   onTouchMove?: (info: TinySliderInfo) => void
   onTouchEnd?: (info: TinySliderInfo) => void
-  children?: React.ReactNode
+  children: JSX.Element[] | JSX.Element
   className?: string
-  style?: CSSProperties
+  style?: CSSProperties,
 }
 
 const Carousel = React.forwardRef(
@@ -34,10 +23,9 @@ const Carousel = React.forwardRef(
     const slider = useRef<TinySliderInstance | null>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const dragging = useRef<boolean>(false)
-    const [showSlider, setShowSlider] = useState(true)
 
     const onClick = (event: MouseEvent) => {
-      const { onClick } = props
+      const {onClick} = props
 
       if (dragging.current || !onClick) return
       if (!slider.current) return onClick(null, null, event)
@@ -49,17 +37,18 @@ const Carousel = React.forwardRef(
 
     const build = (newSettings: ReactTinySliderConfig) => {
 
+
       const settings: ReactTinySliderConfig = {
         ...newSettings,
         onInit: () => {
           // settings.onInit && settings.onInit()
           postInit()
         },
-        container: containerRef.current.firstChild as HTMLElement
+        container: containerRef.current as HTMLElement,
       }
 
       slider.current = tns(settings)
-     }
+    }
 
     const postInit = () => {
       const events = slider.current?.events
@@ -86,18 +75,58 @@ const Carousel = React.forwardRef(
       build(props)
 
       return () => {
-         slider.current && slider.current.destroy()
+        slider.current && slider.current.destroy()
       }
     }, [props])
 
+    const generateSlides = (children: JSX.Element[] | JSX.Element) => {
+      const slideCount = React.Children.count(children);
+      const cloneCount = props.loop ? getCloneCountForLoop(props, slideCount) : 0
+      const beforeClones = [];
+      const afterClones = [];
+
+      for (let j = cloneCount; j--;) {
+        const num = j % slideCount;
+
+        if (children !== undefined) {
+          const cloneFirst = React.cloneElement(children[num], {
+            className: "tns-item tns-slide-cloned",
+            id: null,
+            key: 'item-clone-first' + children[num].key
+          });
+
+          afterClones.unshift(cloneFirst)
+
+          if (props.mode === 'carousel') {
+            const cloneLast = React.cloneElement(children[slideCount - 1 - num], {
+              className: "tns-item tns-slide-cloned",
+              id: null,
+              key: 'item-clone-last' + children[num].key
+            });
+            beforeClones.push(cloneLast);
+          }
+        }
+      }
+
+      return [
+        ...beforeClones,
+        ...React.Children.toArray(children),
+        ...afterClones
+      ];
+    }
+
     return (
       <div
-        ref={containerRef}
         onClick={onClick}
-        className={props.className}
-        style={props.style}
-        dangerouslySetInnerHTML={{__html: '<div> <div>1</div> <div>2</div> <div>3</div> <div>4</div> <div>5</div> <div>6</div> </div>'}}
-      />
+        className={'tns-outer'}
+        id={'tns1-ow'}
+      >
+        <div className={'tns-ovh'} id={'tns1-mw'}>
+          <div className={'tns-inner'} id={'tns1-iw'} ref={containerRef}>
+            {generateSlides(props.children)}
+          </div>
+        </div>
+      </div>
     )
   }
 )
