@@ -7,7 +7,7 @@
   "repository": "Mikecoon/react-tiny-slider",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
-  "source": "src/index.tsx",
+  "source": "src/Carousel.tsx",
   "engines": {
     "node": ">=10"
   },
