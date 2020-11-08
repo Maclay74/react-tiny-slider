@@ -7,6 +7,7 @@ const blocks2 = ['1', '2', '3', '4', '5', '6', '7']
 const App = () => {
 
   const carousel = useRef(null)
+  const carousel2 = useRef(null)
   const [currentBlocks, setCurrentBlocks] = useState(blocks2)
 
   const response = {
@@ -36,6 +37,28 @@ const App = () => {
         }}
       >
         {currentBlocks.map((block) => {
+          return <div
+            className={'tns-item'}
+            style={{ height: 100, backgroundColor: 'lightgray' }}
+          >
+            <div className={'slide'}>{block}</div>
+          </div>
+        })}
+      </Carousel>
+
+      <Carousel
+        responsive={response}
+        swipeAngle={false}
+        items={3}
+        mouseDrag
+        ref={carousel2}
+        controls={false}
+        nav={false}
+        onClick={(slideIndex, info, event) => {
+          console.log(slideIndex, info, event)
+        }}
+      >
+        {blocks.map((block) => {
           return <div
             className={'tns-item'}
             style={{ height: 100, backgroundColor: 'lightgray' }}

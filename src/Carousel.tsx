@@ -110,6 +110,7 @@ const Carousel = React.forwardRef(
     }
 
     useEffect(() => {
+      slider.current && slider.current.destroy()
       build(props)
     }, [props])
 
