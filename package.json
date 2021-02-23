@@ -1,6 +1,6 @@
 {
   "name": "react-tiny-slider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Made with create-react-library",
   "author": "Maclay74",
   "license": "MIT",
@@ -62,6 +62,6 @@
   ],
   "dependencies": {
     "tiny-slider": "^2.9.3",
-     "lodash": "^4.17.21"
+    "lodash": "^4.17.21"
   }
 }
