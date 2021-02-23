@@ -61,7 +61,6 @@
     "dist"
   ],
   "dependencies": {
-    "tiny-slider": "^2.9.3",
-    "lodash": "^4.17.21"
+    "tiny-slider": "^2.9.3"
   }
 }

@@ -2,8 +2,6 @@ import React, { CSSProperties, MouseEvent, useEffect, useRef } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { tns } from 'tiny-slider/src/tiny-slider'
 import 'tiny-slider/dist/tiny-slider.css'
-// @ts-ignore
-import * as _ from 'lodash'
 import {
   TinySliderInfo,
   TinySliderInstance,
@@ -44,7 +42,7 @@ const Carousel = React.forwardRef(
       const info = slider.current.getInfo()
 
       // @ts-ignore
-      const slideClickOffset = _.cloneDeep(info.slideItems)
+      const slideClickOffset = Array.from(info.slideItems)
         // @ts-ignore
         .filter((slide) => slide.classList.contains('tns-slide-active'))
         // @ts-ignore
