@@ -1,6 +1,6 @@
 {
   "name": "react-tiny-slider",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A react wrapper for tiny-slider library",
   "files": [
     "dist/**/*",
