@@ -1,0 +1,22 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "standard", "plugin:react/recommended", "plugin:react-hooks/recommended", "prettier"
+  ],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "settings": {
+    "react": {
+      "version": "18"
+    }
+  },
+  "ignorePatterns": [
+    "dist", "node_modules", "bundled"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "react-tiny-slider",
+  "version": "2.0.0",
+  "description": "A react wrapper for tiny-slider library",
+  "files": [
+    "dist/**/*",
+    "bundled/**/*"
+  ],
+  "sideEffects": false,
+  "source": "src/index.tsx",
+  "main": "dist/react-tiny-slider.js",
+  "umd:main": "dist/react-tiny-slider.umd.js",
+  "module": "dist/react-tiny-slider.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/react-tiny-slider.js",
+    "default": "./dist/react-tiny-slider.modern.mjs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "clean": "npm-run-all --parallel clean:bundled clean:dist",
+    "clean:bundled": "rimraf bundled",
+    "clean:dist": "rimraf dist",
+    "version:patch": "npm version patch",
+    "prepublishOnly": "npm-run-all version:patch build",
+    "postpublish": "git push --follow-tags",
+    "build": "npm-run-all --parallel clean build:dist build:types",
+    "build:types": "tsc -d --emitDeclarationOnly --declarationDir ./dist --removeComments",
+    "build:dist": "microbundle build -i src/index.tsx --o ./dist --jsx React.createElement",
+    "code-clean": "prettier --write '**/*.{tsx,ts,json,css,scss,md}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maclay74/react-tiny-slider.git"
+  },
+  "keywords": [
+    "react",
+    "tiny-slider"
+  ],
+  "author": "Maclay74",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Maclay74/react-tiny-slider/issues"
+  },
+  "homepage": "https://github.com/Maclay74/react-tiny-slider#readme",
+  "devDependencies": {
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "microbundle": "^0.15.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "tiny-slider": "^2.9.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
