@@ -18,6 +18,11 @@ jobs:
       - name: Install dependencies and build
         run: npm ci
 
+      - name: Configure git
+        run: |
+          git config user.email "mishakozlov74@gmail.com"
+          git config user.name "Mike Kozlov"
+
       - name: Publish package on NPM
         run: npm publish
         env:
