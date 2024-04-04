@@ -1,6 +1,6 @@
 {
   "name": "react-tiny-slider",
-  "version": "2.0.5",
+  "version": "2.0.3",
   "description": "A react wrapper for tiny-slider library",
   "files": [
     "dist/**/*",
@@ -22,7 +22,8 @@
     "clean": "npm-run-all --parallel clean:bundled clean:dist",
     "clean:bundled": "rimraf bundled",
     "clean:dist": "rimraf dist",
-    "build": "npm-run-all --parallel clean build:dist build:types",
+    "version:patch": "npm version patch",
+    "build": "npm-run-all --parallel build:dist build:types",
     "build:types": "tsc -d --emitDeclarationOnly --declarationDir ./dist --removeComments",
     "build:dist": "microbundle build -i src/index.tsx --o ./dist --jsx React.createElement",
     "code-clean": "prettier --write '**/*.{tsx,ts,json,css,scss,md}'"
